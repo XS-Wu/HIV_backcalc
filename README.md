@@ -7,7 +7,7 @@ This repository contains core model code for a HIV back-calculation model with 3
 - JAGS compilation + MCMC sampling code (rjags + coda)
 - Expected input objects and their required shapes
 
-## Model overview (high level)
+## Model overview
 
 - Time index: quarters `t = 1..TT`
 - CD4 strata: `k = 1..3` representing `500+`, `200–500`, `<200`
