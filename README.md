@@ -56,5 +56,5 @@ Before sourcing/running the core script, you must define:
 
 Optionally save:
 ```r
-saveRDS(samps, file = "backcalc_core_noanchors.rds")
+saveRDS(samps, file = "backcalc_core.rds")
 ```
