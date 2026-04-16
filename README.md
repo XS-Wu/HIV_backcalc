@@ -3,9 +3,12 @@
 This repository contains core model code for a HIV back-calculation model with 3 CD4 strata at diagnosis.
 
 ✅ Included:
+- Source code for the core model (backcalc_core.R)
 - JAGS model specification (`model_string`)
 - JAGS compilation + MCMC sampling code (rjags + coda)
 - Expected input objects and their required shapes
+
+This repository provides source code, not compiled standalone software.
 
 ## Model overview
 
@@ -27,6 +30,17 @@ This repository contains core model code for a HIV back-calculation model with 3
   `W[t,] ~ Multinomial(proportions[t,], X_HIV[t])`
 
 ## Requirements
+
+### Software dependencies
+This code requires: R 4.5.1 (R Foundation for Statistical Computing, Vienna, Austria)
+
+### Operating systems
+Tested on Windows 11, version 25H2
+
+### Tested environment
+- Operating system: Windows 11, version 25H2
+- Memory: 96 GB RAM
+- GPU: NVIDIA GeForce RTX 4060 Laptop GPU
 
 ### R packages
 - rjags
@@ -58,3 +72,33 @@ Optionally save:
 ```r
 saveRDS(samps, file = "backcalc_core.rds")
 ```
+
+## Expected output
+The main output is:
+- samps: a coda mcmc.list object
+
+This object contains posterior samples for monitored parameters, including:
+- mu_HIV
+- mu_AIDS
+- mu_HIV_k
+- d
+- C
+- D
+- coverage
+- yearly_h
+- yearly_diag
+- C_0
+- D_0
+- tau_h
+- tau_d
+- gamma
+- delta
+- h
+
+You can inspect the result with:
+summary(samps)
+plot(samps)
+
+Expected run time on a normal desktop computer
+- For the full study-scale run, the observed runtime in the tested environment was approximately 20 minutes.
+
