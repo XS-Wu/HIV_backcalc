@@ -96,8 +96,10 @@ This object contains posterior samples for monitored parameters, including:
 - h
 
 You can inspect the result with:
+```r
 summary(samps)
 plot(samps)
+```
 
 Expected run time on a normal desktop computer
 - For the full study-scale run, the observed runtime in the tested environment was approximately 20 minutes.
