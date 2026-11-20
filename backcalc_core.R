@@ -20,8 +20,8 @@ library(coda)
 # 0) MCMC settings
 # =======================
 CHAINS <- 4
-ITER   <- 10000
-BURNIN <- 2000
+ITER   <- 6000
+BURNIN <- 3000
 THIN   <- 1
 
 # =======================
@@ -31,15 +31,15 @@ model_string <- "
 model {
   # ---- initial pools and initial coverage ----
   for(k in 1:KK) { E_k0[k] ~ dgamma(1,0.001) }
-  coverage_0 ~ dnorm(0.10, 1e4) T(0,1)          
+  coverage_0 ~ dnorm(0.10, 100) T(0,1)          
   sumE <- sum(E_k0)
   C_0  <- sumE / (1 - coverage_0)               
   D_0  <- coverage_0 * C_0                      
 
   # ---- quarterly incidence random walk (log-scale) ----
-  lowerG <- log(1000); upperG <- log(6000)
-  gamma[1] ~ dnorm(log(4500), 1) T(log(3000), log(6000))
-  tau_h ~ dgamma(10,10)
+  lowerG <- log(10); upperG <- log(100000)
+  gamma[1] ~ dnorm(log(3200), 1/(1.0^2)) T(log(10), log(100000))
+  tau_h ~ dgamma(1000, 10)
   for(i in 2:TT) {
     gamma[i] ~ dnorm(gamma[i-1], tau_h) T(lowerG, upperG)
   }
@@ -125,6 +125,7 @@ jmod <- jags.model(
   textConnection(model_string),
   data     = data_list,
   n.chains = CHAINS,
+  n.adapt  = 2000,
   quiet    = TRUE
 )
 
